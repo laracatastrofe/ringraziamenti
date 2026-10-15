@@ -33,12 +33,12 @@
         body {
             background-color: #E6E6E6; 
             font-family: 'Basier Square Mono', 'Courier New', Courier, monospace;
-            font-weight: 400; /* Riportato a Regular */
+            font-weight: 400; 
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Altezza schermo esatta */
-            overflow: hidden; /* Questo blocca definitivamente lo scroll della pagina sul telefono */
+            height: 100vh; 
+            overflow: hidden; 
             padding: 15px;
             color: #1a1a1a;
             font-style: italic;
@@ -48,7 +48,6 @@
             background-color: #F7F5EB;
             width: 100%;
             max-width: 650px;
-            /* Misura fissa in altezza (85% dello schermo, max 800px) */
             height: 85vh; 
             max-height: 800px;
             min-height: 480px;
@@ -90,12 +89,11 @@
             opacity: 0;
             pointer-events: none; 
             transform: translateY(15px); 
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             display: flex;
             flex-direction: column;
             justify-content: center;
             height: 100%;
-            /* Permette lo scroll interno invisibile solo se lo schermo è minuscolo */
             overflow-y: auto; 
             -ms-overflow-style: none;  
             scrollbar-width: none;  
@@ -151,25 +149,25 @@
             box-shadow: none;
         }
 
-        .next-btn {
+        /* STILI CONDIVISI PER ENTRAMBI I BOTTONI */
+        .nav-btn {
             position: absolute;
             bottom: 20px;
-            right: 20px;
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background-color: #F7F5EB; /* Colore solido per coprire il testo che ci finisce sotto */
+            background-color: #F7F5EB; 
             border: 1px solid #1a1a1a;
             color: #1a1a1a;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, opacity 0.3s ease;
             z-index: 10;
         }
 
-        .next-btn svg {
+        .nav-btn svg {
             width: 20px;
             height: 20px;
             stroke: currentColor;
@@ -178,20 +176,39 @@
             transition: transform 0.4s ease;
         }
 
-        .next-btn:hover, .next-btn:active {
+        .nav-btn:hover, .nav-btn:active {
             background-color: #1a1a1a;
             color: #F7F5EB;
+        }
+
+        /* POSIZIONAMENTO SPECIFICO BOTTONE AVANTI */
+        .next-btn {
+            right: 20px;
         }
 
         .next-btn.reset-mode svg {
             transform: rotate(-180deg);
         }
 
+        /* POSIZIONAMENTO SPECIFICO BOTTONE INDIETRO */
+        .prev-btn {
+            left: 80px; /* Spostato di 80px per scavalcare i fori (60px) + margine (20px) */
+        }
+
+        .prev-btn.hidden {
+            opacity: 0;
+            pointer-events: none; /* Rende il bottone non cliccabile quando è invisibile */
+        }
+
         @media (max-width: 600px) {
             .binder-holes { width: 40px; }
             .hole { width: 12px; height: 12px; }
             .page { padding: 30px 20px 80px 15px; } 
-            .next-btn { bottom: 15px; right: 15px; width: 40px; height: 40px; }
+            
+            /* Responsive dei bottoni */
+            .nav-btn { bottom: 15px; width: 40px; height: 40px; }
+            .next-btn { right: 15px; }
+            .prev-btn { left: 55px; } /* 40px fori + 15px margine */
         }
     </style>
 </head>
@@ -266,8 +283,15 @@
 
         </div> 
 
-        <!-- Bottone Freccia -->
-        <button class="next-btn" id="nextBtn" aria-label="Cambia pagina">
+        <!-- BOTTONE INDIETRO -->
+        <button class="nav-btn prev-btn hidden" id="prevBtn" aria-label="Pagina precedente">
+            <svg viewBox="0 0 24 24">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+        </button>
+
+        <!-- BOTTONE AVANTI -->
+        <button class="nav-btn next-btn" id="nextBtn" aria-label="Cambia pagina">
             <svg viewBox="0 0 24 24">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
@@ -278,24 +302,55 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
             const pages = document.querySelectorAll('.page');
             let currentIndex = 0;
 
-            nextBtn.addEventListener('click', () => {
-                pages[currentIndex].classList.remove('active');
-
-                if (currentIndex < pages.length - 1) {
-                    currentIndex++;
-                    if (currentIndex === pages.length - 1) {
-                        nextBtn.classList.add('reset-mode');
+            function updateUI() {
+                // Rende visibile solo la pagina corrente
+                pages.forEach((page, index) => {
+                    if (index === currentIndex) {
+                        page.classList.add('active');
+                    } else {
+                        page.classList.remove('active');
                     }
+                });
+
+                // Gestisce la visibilità del bottone Indietro
+                if (currentIndex === 0) {
+                    prevBtn.classList.add('hidden');
                 } else {
-                    currentIndex = 0;
-                    nextBtn.classList.remove('reset-mode');
+                    prevBtn.classList.remove('hidden');
                 }
 
-                pages[currentIndex].classList.add('active');
+                // Gestisce lo stato del bottone Avanti (reset mode sull'ultima pagina)
+                if (currentIndex === pages.length - 1) {
+                    nextBtn.classList.add('reset-mode');
+                } else {
+                    nextBtn.classList.remove('reset-mode');
+                }
+            }
+
+            // Click su Avanti
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < pages.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0; // Torna all'inizio
+                }
+                updateUI();
             });
+
+            // Click su Indietro
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateUI();
+                }
+            });
+
+            // Avvia lo stato iniziale
+            updateUI();
         });
     </script>
 </body>

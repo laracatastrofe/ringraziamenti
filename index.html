@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ringraziamenti</title>
     <style>
-        /* Importazione dei font caricati su GitHub */
         @font-face {
             font-family: 'Basier Square Mono';
             src: url('BasierSquareMono-Regular.otf') format('opentype');
@@ -34,13 +33,13 @@
         body {
             background-color: #E6E6E6; 
             font-family: 'Basier Square Mono', 'Courier New', Courier, monospace;
-            /* Imposto il peso a 500 per usare il font Medium, molto più leggibile su mobile */
-            font-weight: 500; 
+            font-weight: 400; /* Riportato a Regular */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            height: 100vh; /* Altezza schermo esatta */
+            overflow: hidden; /* Questo blocca definitivamente lo scroll della pagina sul telefono */
+            padding: 15px;
             color: #1a1a1a;
             font-style: italic;
         }
@@ -49,6 +48,10 @@
             background-color: #F7F5EB;
             width: 100%;
             max-width: 650px;
+            /* Misura fissa in altezza (85% dello schermo, max 800px) */
+            height: 85vh; 
+            max-height: 800px;
+            min-height: 480px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             display: flex;
             position: relative;
@@ -78,6 +81,7 @@
             flex-grow: 1;
             display: grid; 
             position: relative;
+            height: 100%;
         }
 
         .page {
@@ -87,10 +91,18 @@
             pointer-events: none; 
             transform: translateY(15px); 
             transition: opacity 0.5s ease, transform 0.5s ease;
-            /* Flexbox per centrare sempre i testi verticalmente nella pagina */
             display: flex;
             flex-direction: column;
             justify-content: center;
+            height: 100%;
+            /* Permette lo scroll interno invisibile solo se lo schermo è minuscolo */
+            overflow-y: auto; 
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+        
+        .page::-webkit-scrollbar { 
+            display: none; 
         }
 
         .page.active {
@@ -101,7 +113,7 @@
         }
 
         .page-8 {
-            align-items: center; /* Centra orizzontalmente solo per la foto */
+            align-items: center; 
         }
         
         .page-8 .center-text {
@@ -109,8 +121,7 @@
         }
 
         p {
-            /* Dimensione leggermente aumentata per i telefoni */
-            font-size: clamp(13px, 2.2vw, 15px); 
+            font-size: clamp(12px, 2vw, 14px); 
             line-height: 1.6;
             margin-bottom: 25px;
         }
@@ -142,12 +153,12 @@
 
         .next-btn {
             position: absolute;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background-color: transparent;
+            background-color: #F7F5EB; /* Colore solido per coprire il testo che ci finisce sotto */
             border: 1px solid #1a1a1a;
             color: #1a1a1a;
             display: flex;
@@ -179,9 +190,8 @@
         @media (max-width: 600px) {
             .binder-holes { width: 40px; }
             .hole { width: 12px; height: 12px; }
-            /* Tolto un po' di margine superiore e inferiore sui telefoni piccoli per dare aria al testo */
-            .page { padding: 30px 20px 70px 10px; } 
-            .next-btn { bottom: 15px; right: 15px; }
+            .page { padding: 30px 20px 80px 15px; } 
+            .next-btn { bottom: 15px; right: 15px; width: 40px; height: 40px; }
         }
     </style>
 </head>

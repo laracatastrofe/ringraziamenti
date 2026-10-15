@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ringraziamenti</title>
+    <style>
+        /*
+        @font-face {
+            font-family: 'Basier Square Mono';
+            src: url('BasierSquareMono-Regular.woff2') format('woff2'),
+                 url('BasierSquareMono-Regular.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Basier Square Mono';
+            src: url('BasierSquareMono-Bold.woff2') format('woff2'),
+                 url('BasierSquareMono-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+        */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #E6E6E6; 
+            font-family: 'Basier Square Mono', 'Courier New', Courier, monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #1a1a1a;
+            font-style: italic;
+        }
+
+        .paper-container {
+            background-color: #F7F5EB;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            position: relative;
+            overflow: hidden; 
+        }
+
+        .binder-holes {
+            width: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 40px 0;
+            flex-shrink: 0;
+            border-right: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .hole {
+            width: 16px;
+            height: 16px;
+            background-color: #555;
+            border-radius: 50%;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        .pages-wrapper {
+            flex-grow: 1;
+            display: grid; 
+            position: relative;
+        }
+
+        .page {
+            grid-area: 1 / 1; 
+            padding: 60px 40px 100px 20px;
+            opacity: 0;
+            pointer-events: none; 
+            transform: translateY(15px); 
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0); 
+            z-index: 2;
+        }
+
+        /* STILE SPECIFICO PER CENTRARE LA PAGINA 5 */
+        .page-5 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centra verticalmente */
+            align-items: center;     /* Centra orizzontalmente */
+        }
+        
+        .page-5 .center-text {
+            margin-bottom: 40px; /* Spazio tra la data e l'immagine */
+        }
+
+        p {
+            font-size: clamp(12px, 1.8vw, 14px); 
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        strong {
+            font-weight: 700;
+        }
+
+        .center-text {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* IMMAGINE PNG ALLARGATA */
+        .collage-container {
+            width: 100%;
+            max-width: 550px; /* Misura aumentata: l'immagine sarà molto più grande */
+            display: flex;
+            justify-content: center;
+        }
+
+        .collage-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .next-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 1px solid #1a1a1a;
+            color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .next-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+            transition: transform 0.4s ease;
+        }
+
+        .next-btn:hover, .next-btn:active {
+            background-color: #1a1a1a;
+            color: #F7F5EB;
+        }
+
+        .next-btn.reset-mode svg {
+            transform: rotate(-180deg);
+        }
+
+        @media (max-width: 600px) {
+            .binder-holes { width: 40px; }
+            .hole { width: 12px; height: 12px; }
+            .page { padding: 40px 20px 80px 10px; }
+            .next-btn { bottom: 20px; right: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="paper-container">
+        
+        <div class="binder-holes">
+            <div class="hole"></div><div class="hole"></div><div class="hole"></div><div class="hole"></div>
+        </div>
+
+        <div class="pages-wrapper">
+
+            <!-- PAGINA 1 -->
+            <div class="page active">
+                <p class="center-text">Ringraziamenti &lt;3</p>
+                <p>Solo adesso mi rendo conto di quanto sarà difficile ringraziare, in poche righe, tutte le persone che hanno contribuito a questo traguardo. Proverò a farlo, senza l'aiuto di ChatGPT.</p>
+                <p>Non è facile iniziare da te, ci sarebbero troppe cose da dire, troppe cose che non troverebbero lo spazio e il modo giusto per essere descritte.<br>
+                Grazie <strong>Mamma</strong>.<br>
+                Grazie perché tutto quello che ho raggiunto fino a questo momento lo devo a te, all'amore, all'impegno, alla forza, alla cura e all'incredibile devozione che hai impiegato nell'accompagnarmi in ogni passo dal momento in cui ho messo piede su questa Terra. Grazie perché non hai mai smesso di crescere, di migliorare con me e per me. Grazie perché dove chiunque avrebbe visto un ostacolo tu hai visto un'opportunità, dove chiunque avrebbe visto una difficoltà tu hai trovato una soluzione, dove chiunque avrebbe visto nero tu hai portato la luce, dove chiunque avrebbe mollato tu, mamma, non l'hai fatto.<br>
+                Grazie, perché se posso chiamare famiglia questo gruppo di persone un po' disastrate, è solo grazie a te.</p>
+                <p>Grazie <strong>zia Chicca</strong>, braccio destro e qualche volta anche quello sinistro, della mia mamma. Grazie perché hai sempre diviso il peso delle giornate più dure con noi. Grazie per la tua presenza costante, perché è stata la spinta che ci ha permesso di continuare a camminare sempre, arrivando ogni singolo giorno un po' più lontano. Ci hai aiutato a superare l'insuperabile, a trasformare la fatica in forza, fino a portarci esattamente qui: e guarda cosa siamo riuscite a fare.</p>
+                <p>Grazie <strong>Papà</strong> per essere sempre così orgoglioso di me. Grazie per aver superato ogni difficoltà per essere qui oggi a condividere quell'orgoglio anche con me.</p>
+            </div>
+
+            <!-- PAGINA 2 -->
+            <div class="page">
+                <p>Grazie alla mia famiglia tutta, sparsa un po' in giro per l'Italia e per l'Europa. Grazie <strong>zia Titti, Franci, zio Luca, zia Laura, Giada, Giulia, Elena e Giorgio</strong> perché nonostante la distanza, gli impegni quotidiani e gli imprevisti avete trovato il modo di essere tutti qui a festeggiare questo traguardo con me. Grazie a chi non è potuto esserci, il vostro supporto riesce a sempre a superare i chilometri che ci dividono. Grazie alla <strong>nonna Clorie</strong>, che ci guarda da lassù: sono certa che oggi sorrida, orgogliosa di vederci tutti qui insieme.</p>
+                <p>Grazie <strong>Elisa</strong>, la sorella che la vita non mi ha dato alla nascita ha trovato il modo di raggiungermi lungo il percorso. Grazie perché non ti sei mai fermata alla superficie, grazie di non esserti mai tirata indietro davanti alle difficoltà e sai bene che in questi 6 anni ce ne sono state tante. Grazie perché hai condiviso tutto con me: lacrime di gioia e di dolore, risate, debolezze, viaggi, case, libri, auto, fogli di giornale e perfino lo stesso water. Eli quante cose abbiamo fatto in questi anni, quante volte avrei potuto sentirmi sola e quante volte mi sono girata e ti ho trovata lì, a volte nella stanza a fianco, altre volte in cucina a preparare dolci buonissimi, e altre volte ancora dietro lo schermo di un telefono. So quanto la tua famiglia sia importante per te. Grazie per avermi permesso di farne parte, te ne sarò per sempre grata.</p>
+                <p>Grazie <strong>Marco</strong> che dopo tutti questi anni ancora riesce a sopportare la mia follia. Grazie per l'ascolto e la pazienza inesauribile, per avermi fatto conoscere la felicità di vedere nascere due piccole anime e grazie di trovare sempre il tempo per continuare a crescere insieme.</p>
+            </div>
+
+            <!-- PAGINA 3 -->
+            <div class="page">
+                <p>Grazie <strong>Porsy</strong> per aver portato il cielo sereno nel caos di Roma. Grazie per avermi ricordato quanto la vita possa essere sorprendente anche quando ti sembra di non avere niente. Grazie per aver condiviso l'ultimo pezzo di strada, la salita prima del traguardo, con me. Grazie per l'innata cura che hai verso gli altri, e per aver dato voce ai miei silenzi senza chiederne mai il conto. Grazie perché il regalo più grande che mi hai fatto è credere di nuovo che, per me, non esistono traguardi irraggiungibili.</p>
+                <p>Grazie <strong>Chiara e Sara</strong>, perché la vostra ambizione mi stimola a fare sempre di meglio. Grazie perché nella vostra compagnia ho trovato il supporto e la leggerezza di cui avevo bisogno per non cedere il passo alla fatica. Siete l'equilibrio tra l'ispirazione che ti fa crescere e un'amicizia vera che ti fa sentire protetta.</p>
+                <p>Grazie ai miei amici <strong>Serena, Mattia, Giada, Davide e Silvia</strong>. Abbiamo condiviso la fatica di questo percorso dal primo giorno ma solo alla fine ci siamo resi davvero conto di quanto tutto sarebbe stato più facile condividendo il carico. Grazie perché siete stati la più bella scoperta di questo viaggio. Non sarebbe stato lo stesso senza di voi.</p>
+                <p>Grazie ai miei <strong>amici</strong>. Ognuno di voi, in tutti questi anni, mi ha lasciato un pezzetto di sé. Tutto quello che abbiamo condiviso mi ha portato qui, grazie di esserci sempre.</p>
+            </div>
+
+            <!-- PAGINA 4 -->
+            <div class="page">
+                <p>Infine, non posso non dedicare un pensiero a te. A te che te ne sei andato troppo presto per poter vivere questo giorno, a te a cui ho dedicato ogni singolo esame e ogni mia giornata a partire da quel 3 febbraio. Ti devo dire grazie, perché è stato solo scontrandomi con la tua assenza che ho scoperto quanta forza nascondevo dentro di me.<br>
+                Grazie perché, perfino andandotene, hai continuato a darmi tanto: hai riportato alla luce rapporti nascosti, mi hai ridato la mia Giulia, mi hai portato a Malaga per la prima volta, hai incrociato il mio cammino con quello di persone meravigliose.<br>
+                Mi hai protetta, e hai insegnato a noi che siamo rimasti come prenderci cura l'uno dell'altro.<br>
+                Grazie perché, nell'impossibilità di accettare ciò che è successo, ti sento ovunque. Soprattutto qui, e soprattutto oggi. Grazie <strong>Zio Army</strong>. Perché se c'è qualcosa che non so, la prima persona a cui vorrei chiederlo rimani sempre tu.</p>
+            </div>
+
+            <!-- PAGINA 5 - CLASSE AGGIUNTA PER CENTRARE TUTTO -->
+            <div class="page page-5">
+                <p class="center-text">
+                    21 / 10 / 2026<br>
+                    Grazie a tutti.
+                </p>
+                
+                <div class="collage-container">
+                    <img src="io.png" alt="Foto ringraziamenti">
+                </div>
+            </div>
+
+        </div> 
+
+        <!-- Bottone Freccia -->
+        <button class="next-btn" id="nextBtn" aria-label="Cambia pagina">
+            <svg viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+        </button>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nextBtn = document.getElementById('nextBtn');
+            const pages = document.querySelectorAll('.page');
+            let currentIndex = 0;
+
+            nextBtn.addEventListener('click', () => {
+                pages[currentIndex].classList.remove('active');
+
+                if (currentIndex < pages.length - 1) {
+                    currentIndex++;
+                    if (currentIndex === pages.length - 1) {
+                        nextBtn.classList.add('reset-mode');
+                    }
+                } else {
+                    currentIndex = 0;
+                    nextBtn.classList.remove('reset-mode');
+                }
+
+                pages[currentIndex].classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
